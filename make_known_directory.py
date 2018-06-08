@@ -21,7 +21,10 @@ for direc in namelist:
 
 	root_known = './known'
 	for i,photo in enumerate(photolist):
-		subprocess.call(["./copy_file.sh","input/"+direc+"/"+photo,"known/"+str(i)+"_"+direc+".jpg"])
+		tmp = photo.split('.')
+		photo_name = tmp[0]
+		photo_ext = tmp[1]
+		subprocess.call(["./copy_file.sh","input/"+direc+"/"+photo,"known/"+str(i)+"_"+direc+"."+photo_ext])
 		print ""
 
 print "Sample photos obtained from the input directory."
@@ -40,7 +43,6 @@ for i,data in enumerate(oup_from_face_recog):
 		unknown_file_name = unknown_file_name_path.split('/')[2]
 		known_folder = (tmp[1].split('_'))[1]
 		subprocess.call(["./make_dir.sh","output/"+known_folder])
-		print ["./copy_file.sh",unknown_file_name_path,"output/"+known_folder+"/"+str(i)+"_"+".jpg"]
 		subprocess.call(["./copy_file.sh",unknown_file_name_path,"output/"+known_folder+"/"+unknown_file_name])
 
 
