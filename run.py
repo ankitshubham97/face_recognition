@@ -57,8 +57,8 @@ for i,data in enumerate(oup_from_face_recog):
 		known_folder = (data[1].split('_'))[1]
 		subprocess.call(["./make_dir.sh","output/"+known_folder])
 		subprocess.call(["./copy_file.sh",unknown_file_name_path,"output/"+known_folder+"/"+unknown_file_name])
-subprocess.call(["rm","-r","output/person/"])
-subprocess.call(["rm","-r","output/persons/"])
+subprocess.call(["rm","-rf","output/person/"])
+subprocess.call(["rm","-rf","output/persons/"])
 print "Grouping of the obtained photos in the respective folders completed."
 print "Find the folders in the 'output' folder."
 
