@@ -61,18 +61,18 @@ def test_image(image_to_check, known_names, known_face_encodings, tolerance=0.6,
         result = list(distances <= tolerance)
 
         if True in result:
-            [print_result(image_to_check, name, distance, show_distance) for is_match, name, distance in zip(result, known_names, distances) if is_match]
+            # [print_result(image_to_check, name, distance, show_distance) for is_match, name, distance in zip(result, known_names, distances) if is_match]
             res.extend([return_result(image_to_check, name, distance, show_distance) for is_match, name, distance in zip(result, known_names, distances) if is_match])
         else:
-            print_result(image_to_check, "unknown_person", None, show_distance)
+            # print_result(image_to_check, "unknown_person", None, show_distance)
             res.append(return_result(image_to_check, "unknown_person", None, show_distance))
 
     if not unknown_encodings:
         # print out fact that no faces were found in image
-        print_result(image_to_check, "no_persons_found", None, show_distance)
+        # print_result(image_to_check, "no_persons_found", None, show_distance)
         res.append(return_result(image_to_check, "no_persons_found", None, show_distance))
-    print("in test_image")
-    print(res)
+    # print("in test_image")
+    # print(res)
     return res
 
 def image_files_in_folder(folder):
@@ -126,13 +126,13 @@ def main(known_people_folder, image_to_check, cpus, tolerance, show_distance):
             res.append(process_images_in_process_pool(image_files_in_folder(image_to_check), known_names, known_face_encodings, cpus, tolerance, show_distance))
     else:
         res.extend([test_image(image_to_check, known_names, known_face_encodings, tolerance, show_distance)])
-    print("in main()")
+    # print("in main()")
     res = [item for sublist in res for item in sublist]
-    print(res)
+    # print(res)
     return res
 
-if __name__ == "__main__":
-    kk = main("./known","./unknown",1,0.6,False)
-    # main()
-    print("ddddd")
-    print(kk)
+# if __name__ == "__main__":
+#     kk = main("./known","./unknown",1,0.6,False)
+#     # main()
+#     print("ddddd")
+#     print(kk)
