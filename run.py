@@ -3,6 +3,8 @@ import sys
 import face_recognition_cli
 
 root_input='./input'
+subprocess.call(["rm","-rf","input/.keep"])
+subprocess.call(["rm","-rf","unknown/.keep"])
 namelist = [ item for item in os.listdir(root_input) if os.path.isdir(os.path.join(root_input, item)) ]
 # print namelist 
 # => ['madhu', 'amartya', 'ankit']
@@ -62,6 +64,8 @@ for i,data in enumerate(oup_from_face_recog):
 subprocess.call(["rm","-rf","output/person/"])
 subprocess.call(["rm","-rf","output/persons/"])
 subprocess.call(["rm","-rf","known/"])
+subprocess.call(["touch","input/.keep"])
+subprocess.call(["touch","unknown/.keep"])
 print "Grouping of the obtained photos in the respective folders completed."
 print "Find the folders in the 'output' folder."
 
