@@ -48,7 +48,7 @@ Install Pillow using:
 pip install Pillow
 ```
 
-#### Installing prerequisites on Linux:
+<#### Installing prerequisites on Linux:>
 
 #### Installing prerequisites on Windows:
 
