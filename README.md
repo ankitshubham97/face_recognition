@@ -9,7 +9,7 @@ Do you have a huge pile of photos of you and your friends and wish there existed
 ### Requirements
 
   * Python 2.7
-  * macOS or Linux (Windows not officially supported, but might work)
+  * macOS or Linux (Support for Windows coming soon!)
 
 ### Prerequisites:
 
@@ -48,9 +48,11 @@ Install Pillow using:
 pip install Pillow
 ```
 
-<#### Installing prerequisites on Linux:>
+#### Installing prerequisites on Linux:
 
-#### Installing prerequisites on Windows:
+You need to make sure that the libraries listed in the above section are installed. Use `apt-get` for this.
+
+<!--#### Installing prerequisites on Windows:
 
 Download and install anaconda for windows from [https://www.anaconda.com/download/].
 
@@ -79,7 +81,7 @@ conda install click
 ```bash
 conda install pillow
 ```
-
+-->
 ### Getting piksep
 
 Choose a folder where you want to keep piksep. Either download the entire code from [https://github.com/ankitshubham97/piksep](https://github.com/ankitshubham97/piksep) as zip file and unzip it or use ```git clone https://github.com/ankitshubham97/piksep.git```
