@@ -38,6 +38,11 @@ def print_result(filename, name, distance, show_distance=False):
     else:
         print("{},{}".format(filename, name))
 
+def return_result(filename, name, distance, show_distance=False):
+    if show_distance:
+        return filename, name, distance
+    else:
+        return str(filename), str(name)
 
 def test_image(image_to_check, known_names, known_face_encodings, tolerance=0.6, show_distance=False):
     unknown_image = face_recognition.load_image_file(image_to_check)
@@ -49,6 +54,7 @@ def test_image(image_to_check, known_names, known_face_encodings, tolerance=0.6,
         unknown_image = np.array(pil_img)
 
     unknown_encodings = face_recognition.face_encodings(unknown_image)
+    res = []
 
     for unknown_encoding in unknown_encodings:
         distances = face_recognition.face_distance(known_face_encodings, unknown_encoding)
@@ -56,13 +62,18 @@ def test_image(image_to_check, known_names, known_face_encodings, tolerance=0.6,
 
         if True in result:
             [print_result(image_to_check, name, distance, show_distance) for is_match, name, distance in zip(result, known_names, distances) if is_match]
+            res.extend([return_result(image_to_check, name, distance, show_distance) for is_match, name, distance in zip(result, known_names, distances) if is_match])
         else:
             print_result(image_to_check, "unknown_person", None, show_distance)
+            res.append(return_result(image_to_check, "unknown_person", None, show_distance))
 
     if not unknown_encodings:
         # print out fact that no faces were found in image
         print_result(image_to_check, "no_persons_found", None, show_distance)
-
+        res.append(return_result(image_to_check, "no_persons_found", None, show_distance))
+    print("in test_image")
+    print(res)
+    return res
 
 def image_files_in_folder(folder):
     return [os.path.join(folder, f) for f in os.listdir(folder) if re.match(r'.*\.(jpg|jpeg|png)', f, flags=re.I)]
@@ -90,14 +101,16 @@ def process_images_in_process_pool(images_to_check, known_names, known_face_enco
     )
 
     pool.starmap(test_image, function_parameters)
+    return 0
+    #multicpu not supported
 
 
-@click.command()
-@click.argument('known_people_folder')
-@click.argument('image_to_check')
-@click.option('--cpus', default=1, help='number of CPU cores to use in parallel (can speed up processing lots of images). -1 means "use all in system"')
-@click.option('--tolerance', default=0.6, help='Tolerance for face comparisons. Default is 0.6. Lower this if you get multiple matches for the same person.')
-@click.option('--show-distance', default=False, type=bool, help='Output face distance. Useful for tweaking tolerance setting.')
+# @click.command()
+# @click.argument('known_people_folder')
+# @click.argument('image_to_check')
+# @click.option('--cpus', default=1, help='number of CPU cores to use in parallel (can speed up processing lots of images). -1 means "use all in system"')
+# @click.option('--tolerance', default=0.6, help='Tolerance for face comparisons. Default is 0.6. Lower this if you get multiple matches for the same person.')
+# @click.option('--show-distance', default=False, type=bool, help='Output face distance. Useful for tweaking tolerance setting.')
 def main(known_people_folder, image_to_check, cpus, tolerance, show_distance):
     known_names, known_face_encodings = scan_known_people(known_people_folder)
 
@@ -105,15 +118,21 @@ def main(known_people_folder, image_to_check, cpus, tolerance, show_distance):
     if (sys.version_info < (3, 4)) and cpus != 1:
         click.echo("WARNING: Multi-processing support requires Python 3.4 or greater. Falling back to single-threaded processing!")
         cpus = 1
-
+    res = []
     if os.path.isdir(image_to_check):
         if cpus == 1:
-            [test_image(image_file, known_names, known_face_encodings, tolerance, show_distance) for image_file in image_files_in_folder(image_to_check)]
+            res.extend([test_image(image_file, known_names, known_face_encodings, tolerance, show_distance) for image_file in image_files_in_folder(image_to_check)])
         else:
-            process_images_in_process_pool(image_files_in_folder(image_to_check), known_names, known_face_encodings, cpus, tolerance, show_distance)
+            res.append(process_images_in_process_pool(image_files_in_folder(image_to_check), known_names, known_face_encodings, cpus, tolerance, show_distance))
     else:
-        test_image(image_to_check, known_names, known_face_encodings, tolerance, show_distance)
-
+        res.extend([test_image(image_to_check, known_names, known_face_encodings, tolerance, show_distance)])
+    print("in main()")
+    res = [item for sublist in res for item in sublist]
+    print(res)
+    return res
 
 if __name__ == "__main__":
-    main()
+    kk = main("./known","./unknown",1,0.6,False)
+    # main()
+    print("ddddd")
+    print(kk)

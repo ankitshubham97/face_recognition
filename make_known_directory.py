@@ -1,4 +1,6 @@
 import os
+import sys
+import face_recognition_cli
 
 root_input='./input'
 namelist = [ item for item in os.listdir(root_input) if os.path.isdir(os.path.join(root_input, item)) ]
@@ -31,18 +33,25 @@ print "Sample photos obtained from the input directory."
 print "Starting the processing of the obtained photos..."
 
 
-oup_from_face_recog = (subprocess.check_output(["face_recognition","./known/","./unknown/"])).split('\n')
-# print "0001"
+# oup_from_face_recog = (subprocess.check_output([sys.executable, "face_recognition_cli.py","./known/","./unknown/"])).split('\n')
+oup_from_face_recog = face_recognition_cli.main("./known","./unknown",1,0.6,False)
+print "0001"
 print oup_from_face_recog
 for i,data in enumerate(oup_from_face_recog):
-	if data.startswith("WARNING") or len(data.split(','))<2 or len(data.split(','))>2:
+	print "fgfg"
+	print data
+	if (data[0]).startswith("WARNING") or len(data)<2 or len(data)>2:
 		continue
 	else:
-		tmp = data.split(',')
-		unknown_file_name_path = tmp[0]
+		# tmp = data.split(',')
+		# unknown_file_name_path = tmp[0]
+		# unknown_file_name = unknown_file_name_path.split('/')[2]
+		# known_folder = (tmp[1].split('_'))[1]
+		# subprocess.call(["./make_dir.sh","output/"+known_folder])
+		# subprocess.call(["./copy_file.sh",unknown_file_name_path,"output/"+known_folder+"/"+unknown_file_name])
+		unknown_file_name_path = data[0]
 		unknown_file_name = unknown_file_name_path.split('/')[2]
-		known_folder = (tmp[1].split('_'))[1]
+		known_folder = (data[1].split('_'))[1]
 		subprocess.call(["./make_dir.sh","output/"+known_folder])
 		subprocess.call(["./copy_file.sh",unknown_file_name_path,"output/"+known_folder+"/"+unknown_file_name])
-
 
