@@ -88,7 +88,7 @@ Choose a folder where you want to keep piksep. Either download the entire code f
 
 Open the root folder. You will see 2 folders: `input` and `unknown`.
 
-<insert pic>
+![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
  
 ### Training photos
 
