@@ -1,6 +1,7 @@
 import os
 import sys
 import face_recognition_cli
+import subprocess
 
 root_input='./input'
 subprocess.call(["rm","-rf","input/.keep"])
@@ -9,7 +10,7 @@ namelist = [ item for item in os.listdir(root_input) if os.path.isdir(os.path.jo
 # print namelist 
 # => ['madhu', 'amartya', 'ankit']
 
-import subprocess
+
 subprocess.call(["chmod","+x","copy_file.sh"])
 subprocess.call(["chmod","+x","make_dir.sh"])
 print "Making subdirectory 'known'..."
