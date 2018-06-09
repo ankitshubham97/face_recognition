@@ -8,6 +8,8 @@ namelist = [ item for item in os.listdir(root_input) if os.path.isdir(os.path.jo
 # => ['madhu', 'amartya', 'ankit']
 
 import subprocess
+subprocess.call(["chmod","+x","copy_file.sh"])
+subprocess.call(["chmod","+x","make_dir.sh"])
 print "Making subdirectory 'known'..."
 subprocess.call(["./make_dir.sh","known"])
 subprocess.call(["./make_dir.sh","output"])
@@ -59,6 +61,7 @@ for i,data in enumerate(oup_from_face_recog):
 		subprocess.call(["./copy_file.sh",unknown_file_name_path,"output/"+known_folder+"/"+unknown_file_name])
 subprocess.call(["rm","-rf","output/person/"])
 subprocess.call(["rm","-rf","output/persons/"])
+subprocess.call(["rm","-rf","known/"])
 print "Grouping of the obtained photos in the respective folders completed."
 print "Find the folders in the 'output' folder."
 
