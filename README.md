@@ -52,6 +52,16 @@ pip install Pillow
 
 #### Installing prerequisites on Windows:
 
+Download and install anaconda for windows from [https://www.anaconda.com/download/].
+From the anaconda command prompt type the following commands:
+conda install cmake
+conda install boost
+conda install numpy
+conda install -c conda-forge dlib=19.4
+conda install click
+conda install pillow
+
+
 ### Getting piksep
 
 Choose a folder where you want to keep piksep. Either download the entire code from [https://github.com/ankitshubham97/piksep](https://github.com/ankitshubham97/piksep) as zip file and unzip it or use ```git clone https://github.com/ankitshubham97/piksep.git```
