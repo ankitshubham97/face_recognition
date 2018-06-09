@@ -53,14 +53,32 @@ pip install Pillow
 #### Installing prerequisites on Windows:
 
 Download and install anaconda for windows from [https://www.anaconda.com/download/].
-From the anaconda command prompt type the following commands:
-conda install cmake
-conda install boost
-conda install numpy
-conda install -c conda-forge dlib=19.4
-conda install click
-conda install pillow
 
+From the anaconda command prompt type the following commands:
+
+```bash
+conda install cmake
+```
+
+```bash
+conda install boost
+```
+
+```bash
+conda install numpy
+```
+
+```bash
+conda install -c conda-forge dlib=19.4
+```
+
+```bash
+conda install click
+```
+
+```bash
+conda install pillow
+```
 
 ### Getting piksep
 
